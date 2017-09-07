@@ -3,14 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>登陆页面</title>
+  <style>
+    #login {
+      width: 300px;
+      border: 1px solid #333;
+      padding: 10px;
+      font-size: 18px;
+      background: #f5f5f5;
+    }
+    #js-login {
+      font-size: 22px;
+      width: 100px;
+    }
+  </style>
 </head>
 <body>
-  <form action="/api/login.do" method="post">
-    <p>username: <input type="username" name="username" /></p>
-    <p>password: <input type="password" name="password" /></p>
-    <input type="submit" value="Submit" />
-  </form>
+  <h1>登陆页面</h1>
+  <div id="login">
+    <p>username: <input type="username" class="username" /></p>
+    <p>password: <input type="password" class="password" /></p>
+    <button id="js-login" type="submit"/>登陆</button>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script>
+    $('#js-login').on('click', function() {
+      var commentText = $('#comment').val();
+      $.ajax({    
+        type:'post',        
+        url:'/api/login',    
+        data: {
+          username: $('.username').val(),
+          password: $('.password').val(),
+        },    
+        success:function(data){
+          if (data.success) {
+            location.href = `/commentList.html`;
+          } else {
+            alert(data.message);
+          }
+          // 清空评论文本框
+          $('.username').val('');
+          $('.password').val('');
+        }    
+     });    
+    });
+  </script>
 </body>
 </html>

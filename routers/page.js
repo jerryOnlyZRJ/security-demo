@@ -1,8 +1,5 @@
 const router = require('koa-router')()
 
-router.get('/xss/nonpersistent', async ( ctx )=>{
-  ctx.body = `<h1>this is ${ctx.query.q || 'default'}</h1>`;
-});
 
 // 内存保存用户名称数据
 let userName = ''; 

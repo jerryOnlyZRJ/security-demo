@@ -1,29 +1,63 @@
 const router = require('koa-router')();
+const userModel = require('../model/user');
+const commentModel = require('../model/comment');
 
-
-router.post('/login.do', async ( ctx )=>{
+/**
+ * 登陆
+ */
+router.post('/login', async ( ctx )=>{
   let postData = ctx.request.body;
-  console.log(postData);
-  ctx.redirect('/comment.html');
+  if (userModel.isSystemUser(postData.username, postData.password)) {
+    userModel.setUserCookie(postData.username, ctx);
+
+    // 登陆成功
+    ctx.body = {
+      success: true,
+      retcode: 0
+    };
+  } else {
+    // 登陆成功
+    ctx.body = {
+      success: false,
+      message: '没有该用户'
+    };
+  }
 });
 
-
+/**
+ * 增加评论
+ */
 router.post('/addComment', async ( ctx )=>{
   let postData = ctx.request.body;
-  const commentText = postData.text;  
-  // 设置应用的
-  ctx.app.comments = ctx.app.comments || [];
-  ctx.app.comments.push(commentText);
-  ctx.body = {
-    success: true,
-    retcode: 0
-  };
+  // 判断是否是登陆了
+  const username = userModel.checkUserByCookie(ctx);
+  if (username) {
+    const user = userModel.getUserDetail(username);
+    // 增加评论
+    commentModel.addComments({
+      text: postData.text,
+      username: username,
+      avatar: user.avatar
+    });
+    ctx.body = {
+      success: true,
+      retcode: 0
+    };
+  } else {
+    ctx.body = {
+      success: false,
+      message: '没有登陆'
+    };
+  }
 });
 
+/**
+ * 获取评论列表
+ */
 router.get('/getCommentList', async ( ctx )=>{
   ctx.body = {
     success: true,
-    list: ctx.app.comments
+    list: commentModel.getCommentList()
   };
 });
 

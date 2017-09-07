@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>钓鱼页面</title>
+  <style>
+    body {
+      background: #d0ad88;
+    }
+    .wrapper {
+      background: url(http://game.gtimg.cn/images/yxzj/web201605/top_banner/bg_wrapper2.jpg)  no-repeat center top;
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+    }
+    .login-panel {
+      background: rgba(0, 0,0, 0.5);
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+    .login-panel .login-form {
+      width: 400px;
+      height: 378px;
+      position: absolute;
+      left: 50%;
+      top: 40%;
+      margin-left: -200px;
+      background: url('http://localhost:3001/imgs/login.png')
+    }
+    .login-form input {
+      top: 144px;
+      left: 62px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      height: 38px;
+      width: 254px;
+      padding-left: 14px;
+      font-size: 14px;
+    }
+    .pics {
+      text-align: center
+    }
+    .pics img {
+      margin: 0px;
+      border: 3px solid #aa8617;
+    }
+    h2 {
+      text-align: center;
+      color: #ffe713;
+      font-size: 40px;
+      text-shadow: 2px 2px 2px #da2d2d;
+    }
+    .js-login {
+      display: block;
+      font-size: 50px;
+      background: #fde639;
+      padding: 4px 20px;
+      color: #020202;
+      border: none;
+      border: 4px solid #333;
+      border-radius: 4px;
+      margin: 10px auto;
+    }
+    .username {
+      position: absolute;
+      
+    }
+  </style> 
+</head>
+<body>
+  <div class="wrapper">
+  </div>
+  <h2>登陆送火热新英雄</h2>
+  <div class="pics">
+    <img src="http://game.gtimg.cn/images/yxzj/img201606/freehero/horizontal/190_skin.jpg" alt="">
+    <img src="http://game.gtimg.cn/images/yxzj/img201606/freehero/horizontal/195.jpg" alt="">
+    <img src="http://game.gtimg.cn/images/yxzj/img201606/freehero/vertical/196.jpg" alt="">
+    <img src="http://game.gtimg.cn/images/yxzj/img201606/freehero/vertical/189.jpg" alt="">
+  </div>
+  <div class="login">
+    <button class="js-login">立即登陆</button>
+  </div>
+  <div class="login-panel">
+      <div class="login-form" src="http://localhost:3001/imgs/login.png"> 
+        <input type="text" class="username" placeholder="输入QQ账号">
+      </div>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script>
+    $('.js-login').on('click', function() {
+      $('.login-panel').show();
+    });
+  </script>
+</body>
+</html>
