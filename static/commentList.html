@@ -75,6 +75,9 @@
     // 添加评论
     $('#js-add-comment').on('click', function() {
       var commentText = $('#comment').val();
+      if (!commentText) {
+        return;
+      }
       $.ajax({    
           type:'post',        
           url:'/api/addComment',    

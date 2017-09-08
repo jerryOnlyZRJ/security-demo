@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>银行页面</title>
+  <style>
+    h1 {
+      background: #656565;
+      color: #fff;
+      line-height: 60px;
+      text-align: center;
+    }
+    .user-avatar {
+      width: 80px;
+      height: 100px;
+    }
+    p {
+      font-size: 22px;
+    }
+    .box {
+      padding: 10px 30px;
+      border: 1px solid #999;
+      width: 600px;
+      margin: 10px auto;
+      position: relative
+    }
+    input {
+      width: 140px;
+      height: 30px;
+      font-size: 24px;
+      padding: 10px;
+    }
+    #js-transferMoney {
+      display: block;
+      width: 150px;
+      height: 50px;
+      margin-top: 20px;
+      font-size: 20px;
+      background: #fff;
+      border: 2px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>NEXT-银行 2.0</h1>
+  <div id="user" class="box">
+    <h2>个人信息</h2>
+    <p><img class="user-avatar" src /></p>
+    <p>用户名称: <span class="user-name"></sapn></p>
+    <p>账户余额:  ￥<span class="user-money"></sapn></p>
+  </div>
+  <div id="user" class="box">
+    <h2>转账</h2>
+    <p>转账用户: <input class="username" /></p>
+    
+    <p>转账金额: <input type="number" class="money" /></p>
+    
+    <button id="js-transferMoney" type="submit"/>转账</button>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script>
+    // 获取 cookie 的内容
+    function getCookieItem (key) {
+      if (!key) { return null; }
+      return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+    }
+
+    // 生成 hacker 不可预测的 token
+    function getToken() {
+      // 获取 userkey
+      var userkey = getCookieItem('userkey');
+      var token = userkey + 'secret';
+      return token;
+    }
+
+
+    $(function () {
+      $.ajax({    
+        type:'get',        
+        url:'/api/getUserMoney',    
+        success:function(data){
+          // 拿到数据，则渲染数据
+          if (data.success) {
+            $('.user-avatar').attr('src', data.user.avatar);
+            $('.user-name').text(data.user.username);
+            $('.user-money').text(data.money);
+          } else if (data.retcode === -1){
+            alert('没有登录');
+            location.href = 'login.html';
+          }
+        }    
+      });
+      $('#js-transferMoney').on('click', function() {
+        var username = $('.username').val();
+        var money = $('.money').val();
+        if (!username || !money) {
+          return;
+        }
+        $.ajax({    
+          type:'post',        
+          url:'/api/transerMoney', 
+          data: {
+            username: username,
+            money: money,
+            token: getToken()
+          },  
+          success:function(data){
+            // 拿到数据，则渲染数据
+            if (data.success) {
+              alert('转账成功!');
+              // 清空
+              $('.username').val('');
+              $('.money').val('');
+            } else {
+              alert('转账失败:' + data.message);
+            }
+          }    
+        });
+      });
+    });
+  </script>
+</body>
+</html>

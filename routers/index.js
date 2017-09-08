@@ -1,7 +1,6 @@
 const router = require('koa-router')();
 const api = require('./api');
 const page = require('./page');
-const userModel = require('../model/user');
 
 router.use('/api', api.routes(), api.allowedMethods());
 
