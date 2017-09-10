@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人中心</title>
+  <link rel="stylesheet" href="/css/common.css">
+  <style>
+    .user-avatar {
+      width: 80px;
+      height: 100px;
+    }
+    .box {
+      padding: 10px 30px;
+      border: 1px solid #999;
+      width: 600px;
+      margin: 10px auto;
+      position: relative
+    }
+    #js-transferMoney {
+      display: block;
+      width: 150px;
+      height: 50px;
+      margin-top: 20px;
+      font-size: 20px;
+      background: #fff;
+      border: 2px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>用户详情</h1>
+  <div class="wrapper">
+    <div id="user" class="box">
+      <h2>个人信息</h2>
+      <p><img class="user-avatar" src /></p>
+      <p>用户名称: <span class="user-name"></sapn></p>
+    </div>
+    <div id="comment" class="box">
+      <h2>我的评论</h2>
+      <ul class="comment-list"></ul>
+    </div>
+    <div class="box">
+      <a href="/comment-list.html">评论中心</a>
+      <a href="/bank.html">银行中心</a>
+    </div>
+  </div>
+  <script src="/js/common.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script>
+    $(function () {
+      $.ajax({    
+        type:'get',        
+        url:'/api/get_user_commentList', 
+        data: {
+          username: COMMON.getUrlParam('username')
+        },   
+        success:function(data){
+          // 拿到数据，则渲染数据
+          if (data.success) {
+            $('.user-avatar').attr('src', data.user.avatar);
+            $('.user-name').text(data.user.username);
+            // 遍历插入
+            var html = '';
+            data.list.forEach(function(item, index) {
+              var dateString = COMMON.formatDate("YYYY/MM/DD hh:mm", (new Date(item.date)));
+              html += `<li class="comment-item">
+                <p>评论：${item.text}</p> 
+                <p>时间：${dateString}</p> 
+              </li>`;
+            });
+            $('.comment-list').html(html)
+          } else if (data.retcode === -1){
+            $('.wrapper').html('无该用户')
+          }
+        }    
+      });
+    });
+  </script>
+</body>
+</html>

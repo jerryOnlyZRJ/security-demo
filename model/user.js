@@ -30,16 +30,9 @@ const UserModel = {
   setUserCookie: (username, ctx) => {
     // 简单的计算获得用户的登陆态 cookie
     const userkey = 'userkey_' + Math.random() * 1000;
-    ctx.cookies.set(
-      'userkey', 
-      userkey,
-      {
-        domain: 'localhost',  // 写cookie所在的域名
-        maxAge: 10 * 60 * 1000, // cookie有效时长
-        httpOnly: false,  // 是否只用于http请求中获取
-        overwrite: false  // 是否允许重写
-      }
-    );
+    // 设置 Cookie
+    ctx.cookies.set('userkey', userkey, { httpOnly: false });
+
     // 存用户登陆态 cookie
     userSession[username] = userkey;
   },

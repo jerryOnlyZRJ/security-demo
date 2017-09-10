@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>评论页面</title>
+  <link rel="stylesheet" href="/css/common.css">
   <style>
     textarea {
       display: block;
@@ -16,7 +17,7 @@
       list-style: none;
       margin: 0;
       padding: 0;
-      width: 600px;
+      width: 100%;
     }
     .comment-item {
       border: 1px solid #999;
@@ -45,27 +46,32 @@
   </style>
 </head>
 <body>
-  <h2>评论列表</h2>
-  <ul class="comment-list">
-    
-  </ul>
-  <h2>添加评论</h2>
-  <textarea id="comment" placeholder="评论的信息"></textarea>
-  <button id="js-add-comment">添加评论</button>
+
+  <h1>评论中心</h1>
+  <div class="wrapper">
+    <h2>评论列表</h2>
+    <ul class="comment-list"></ul>
+    <h2>添加评论</h2>
+    <textarea id="comment" placeholder="评论的信息"></textarea>
+    <button id="js-add-comment" class="btn">添加评论</button>
+  </div>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="/js/common.js"></script>
   <script>
     function getCommentList() {
       $.ajax({    
         type:'get',        
-        url:'/api/getCommentList',    
+        url:'/api/get_comment_list',   
         success:function(data){
-          let html = '';
+          var html = '';
           // 遍历插入
           data.list.forEach(function(item, index) {
+            var dateString = COMMON.formatDate("YYYY/MM/DD hh:mm", (new Date(+item.date)));
             html += `<li class="comment-item">
               <img class="user-avatar" src="${item.avatar}" />
               <p class="user-name">用户：${item.username}</p>
               <p>评论：${item.text}</p> 
+              <p>时间：${dateString}</p> 
             </li>`;
           });
           $('.comment-list').html(html)
@@ -80,9 +86,10 @@
       }
       $.ajax({    
           type:'post',        
-          url:'/api/addComment',    
+          url:'/api/add_comment',    
           data: {
-            text: $('#comment').val()
+            text: $('#comment').val(),
+            date: Date.now()
           },    
           success:function(data){
             if (data.success) {

@@ -58,27 +58,21 @@
     
     <button id="js-transferMoney" type="submit"/>转账</button>
   </div>
+  <script src="/js/common.js"></script>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
   <script>
-    // 获取 cookie 的内容
-    function getCookieItem (key) {
-      if (!key) { return null; }
-      return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
-    }
-
     // 生成 hacker 不可预测的 token
     function getToken() {
       // 获取 userkey
-      var userkey = getCookieItem('userkey');
+      var userkey = COMMON.getCookieItem('userkey');
       var token = userkey + 'secret';
       return token;
     }
 
-
     $(function () {
       $.ajax({    
         type:'get',        
-        url:'/api/getUserMoney',    
+        url:'/api/get_user_money',    
         success:function(data){
           // 拿到数据，则渲染数据
           if (data.success) {
@@ -99,7 +93,7 @@
         }
         $.ajax({    
           type:'post',        
-          url:'/api/transerMoney', 
+          url:'/api/transfer_money', 
           data: {
             username: username,
             money: money,

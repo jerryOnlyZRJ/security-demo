@@ -4,17 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>登陆页面</title>
+  <link rel="stylesheet" href="/css/common.css">
   <style>
     #login {
-      width: 300px;
-      border: 1px solid #333;
+      width: 400px;
+      border: 1px solid #dfdfdf;
       padding: 10px;
       font-size: 18px;
+      margin: 50px auto;
       background: #f5f5f5;
-    }
-    #js-login {
-      font-size: 22px;
-      width: 100px;
     }
   </style>
 </head>
@@ -23,22 +21,23 @@
   <div id="login">
     <p>username: <input type="username" class="username" /></p>
     <p>password: <input type="password" class="password" /></p>
-    <button id="js-login" type="submit"/>登陆</button>
+    <button id="js-login" class="btn" type="submit"/>登陆</button>
   </div>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
   <script>
     $('#js-login').on('click', function() {
-      var commentText = $('#comment').val();
+      var username = $('.username').val();
+      var password = $('.password').val();
       $.ajax({    
         type:'post',        
         url:'/api/login',    
         data: {
-          username: $('.username').val(),
-          password: $('.password').val(),
+          username: username,
+          password: password,
         },    
         success:function(data){
           if (data.success) {
-            location.href = `/commentList.html`;
+            location.href = `/user.html?username=${username}`;
           } else {
             alert(data.message);
           }

@@ -3,20 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/common.css">
   <title>银行页面</title>
   <style>
-    h1 {
-      background: #656565;
-      color: #fff;
-      line-height: 60px;
-      text-align: center;
-    }
     .user-avatar {
       width: 80px;
       height: 100px;
-    }
-    p {
-      font-size: 22px;
     }
     .box {
       padding: 10px 30px;
@@ -63,7 +55,7 @@
     $(function () {
       $.ajax({    
         type:'get',        
-        url:'/api/getUserMoney',    
+        url:'/api/get_user_money',    
         success:function(data){
           // 拿到数据，则渲染数据
           if (data.success) {
@@ -84,7 +76,7 @@
         }
         $.ajax({    
           type:'post',        
-          url:'/api/transerMoney', 
+          url:'/api/transfer_money', 
           data: {
             username: username,
             money: money
