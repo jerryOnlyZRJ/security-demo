@@ -21,9 +21,8 @@ function getSortGoods(sort) {
   }
 }
 
-router.get('/sort.html', async ( ctx )=>{
+router.get('/goods.html', async ( ctx )=>{
   const sort = ctx.query.sort;
-  let returnHtml = 
   // 直接使用了参数中的 sort
   ctx.body = `
     <p style="font-size: 40px; padding: 10px;">当前分类： ${sort}</p>

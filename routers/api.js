@@ -7,10 +7,10 @@ const bankModel = require('../model/bank');
  * 登陆
  */
 router.post('/login', async ( ctx )=>{
-  let postData = ctx.request.body;
+  const postData = ctx.request.body;
   if (userModel.isSystemUser(postData.username, postData.password)) {
+    // 设置登陆态cookie
     userModel.setUserCookie(postData.username, ctx);
-
     // 登陆成功
     ctx.body = {
       success: true,
@@ -36,6 +36,44 @@ router.post('/add_comment', async ( ctx )=>{
     // 增加评论
     commentModel.addComments({
       text: postData.text,
+      username: user.username,
+      date: postData.date,
+      avatar: user.avatar
+    });
+    ctx.body = {
+      success: true,
+      retcode: 0
+    };
+  } else {
+    ctx.body = {
+      success: false,
+      retcode: -1,
+      message: '没有登陆'
+    };
+  }
+});
+
+// 转义 html 特殊字符
+function htmlEscape(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+/**
+ * 增加评论
+ * 增加了输入检查
+ */
+router.post('/add_comment2', async ( ctx )=>{
+  let postData = ctx.request.body;
+  // 判断是否是登陆了
+  const user = userModel.checkUserByCookie(ctx);
+  if (user) {
+    // 增加评论
+    commentModel.addComments({
+      text: htmlEscape(postData.text),
       username: user.username,
       date: postData.date,
       avatar: user.avatar

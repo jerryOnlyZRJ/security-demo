@@ -32,7 +32,7 @@ const UserModel = {
     const userkey = 'userkey_' + Math.random() * 1000;
     // 设置 Cookie
     ctx.cookies.set('userkey', userkey, { httpOnly: false });
-
+    ctx.cookies.set('username', username, { httpOnly: false });
     // 存用户登陆态 cookie
     userSession[username] = userkey;
   },

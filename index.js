@@ -18,6 +18,6 @@ app.use(static(
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(3001, () => {
-    console.log('XSS demo is starting at port 3001');
+app.listen(3000, () => {
+    console.log('demo is starting at port 3000');
 });
