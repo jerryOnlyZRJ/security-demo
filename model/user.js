@@ -10,7 +10,7 @@ const Users = [{
   password: '123456'
 },{
   username: 'kevin',
-  avatar: 'user.jpg',
+  avatar: '/imgs/user.jpg',
   password: '123456'
 }];
 

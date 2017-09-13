@@ -7,14 +7,20 @@
   
 </head>
 <body>
-  <h2>在 HTML 标签中输出</h2>
-  <h2>在 HTML 属性中输出</h2>
-  <h2>在 script 标签中输出</h2>
   <h2>在事件中输出</h2>
   <h2>在地址中输出</h2>
+  <div id="content"></div>
+  <input type="text" id="text"/>
+  <button onclick="addText()">设置链接地址</button>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
   <script>
-
+    // 添加文本
+    function addText() {
+      var htmlText = '<a href="' + $('#text').val() + '">链接</a>';
+      $('#content').html(htmlText);
+    }
+ 
+    // " onclick=alert(/xss/) //_
   </script>
 </body>
 </html>
