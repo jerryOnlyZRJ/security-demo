@@ -1,4 +1,4 @@
-## P9-demo 
+## P9-demo
 P9 章节演示的网站
 
 大家可以把这个项目 `clone` 到你们本地，照着视频一步一步了解 Web 安全吧。
@@ -16,7 +16,7 @@ P9 章节演示的网站
 ├── node_modules  依赖包
 ├── package.json
 ├── .editorconfig
-└── .gitignore0
+└── .gitignore
 ```
 
 ## 启动服务
@@ -27,12 +27,12 @@ node index.js
 ## 默认用户账号密码
 用户数据记录在 `/model/user.js` 中
 - 普通用户1 账号：cover 密码： 123456
-- 普通用户1 账号：cover 密码： 123456
+- 普通用户1 账号：kevin 密码： 123456
 - 黑客 账号：badboy 密码： 123456
 
 
 ## 相关演示
-### 1. 登陆页面 
+### 1. 登陆页面
 
 页面地址： http://localhost:3000/login.html
 
@@ -136,7 +136,7 @@ router.post('/add_comment2', async ( ctx )=>{
     avatar: user.avatar
   });
 
-  // 后面可忽略的代码 
+  // 后面可忽略的代码
 });
 ```
 
@@ -144,3 +144,7 @@ router.post('/add_comment2', async ( ctx )=>{
 这里为了区分开来，相关页面为：
 
 页面地址： http://localhost:3000/xss-output.html
+
+## 演示文档
+
+[wiki链接](http://git.imweb.io/imweb-teacher/p9-demo/wikis/home)

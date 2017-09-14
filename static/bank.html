@@ -45,17 +45,17 @@
   <div id="user" class="box">
     <h2>转账</h2>
     <p>转账用户: <input class="username" /></p>
-    
+
     <p>转账金额: <input type="number" class="money" /></p>
-    
+
     <button id="js-transferMoney" type="submit"/>转账</button>
   </div>
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="/js/jquery.js"></script>
   <script>
     $(function () {
-      $.ajax({    
-        type:'get',        
-        url:'/api/get_user_money',    
+      $.ajax({
+        type:'get',
+        url:'/api/get_user_money',
         success:function(data){
           // 拿到数据，则渲染数据
           if (data.success) {
@@ -66,7 +66,7 @@
             alert('没有登录');
             location.href = 'login.html';
           }
-        }    
+        }
       });
       $('#js-transferMoney').on('click', function() {
         var username = $('.username').val();
@@ -74,24 +74,22 @@
         if (!username || !money) {
           return;
         }
-        $.ajax({    
-          type:'post',        
-          url:'/api/transfer_money', 
+        $.ajax({
+          type:'post',
+          url:'/api/transfer_money',
           data: {
             username: username,
             money: money
-          },  
+          },
           success:function(data){
             // 拿到数据，则渲染数据
             if (data.success) {
               alert('转账成功!');
-              // 清空
-              $('.username').val('');
-              $('.money').val('');
+              location.reload();
             } else {
               alert('转账失败:' + data.message);
             }
-          }    
+          }
         });
       });
     });

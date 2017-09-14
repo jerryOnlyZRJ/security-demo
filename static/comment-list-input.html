@@ -55,13 +55,13 @@
     <textarea id="comment" placeholder="评论的信息"></textarea>
     <button id="js-add-comment" class="btn">添加评论</button>
   </div>
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="/js/jquery.js"></script>
   <script src="/js/common.js"></script>
   <script>
     function getCommentList() {
-      $.ajax({    
-        type:'get',        
-        url:'/api/get_comment_list',   
+      $.ajax({
+        type:'get',
+        url:'/api/get_comment_list',
         success:function(data){
           var html = '';
           // 遍历插入
@@ -70,13 +70,13 @@
             html += `<li class="comment-item">
               <img class="user-avatar" src="${item.avatar}" />
               <p class="user-name">用户：${item.username}</p>
-              <p>评论：${item.text}</p> 
-              <p>时间：${dateString}</p> 
+              <p>评论：${item.text}</p>
+              <p>时间：${dateString}</p>
             </li>`;
           });
           $('.comment-list').html(html)
-        }    
-      }); 
+        }
+      });
     }
     // 转义 html 特殊字符
     function htmlEscape(str) {
@@ -93,13 +93,13 @@
       if (!commentText) {
         return;
       }
-      $.ajax({    
-          type:'post',        
-          url:'/api/add_comment2',    
+      $.ajax({
+          type:'post',
+          url:'/api/add_comment2',
           data: {
             text: htmlEscape($('#comment').val()),
             date: Date.now()
-          },    
+          },
           success:function(data){
             if (data.success) {
               getCommentList();
@@ -109,10 +109,10 @@
               alert(data.message);
               location.href = '/login.html';
             }
-          }    
-      });    
-    }); 
-    
+          }
+      });
+    });
+
     getCommentList();
   </script>
 </body>

@@ -26,10 +26,30 @@
       background: #fff;
       border: 2px solid #333;
     }
+    .user-area {
+      position: absolute;
+      top: 40px;
+      right: 30px;
+    }
+    .current-user {
+      display: none;
+    }
+    .current-user-name {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
-  <h1>用户详情</h1>
+  <div class="header">
+    <h1>用户详情</h1>
+    <div class="user-area">
+      <div class="current-user">
+        <span class="current-user-name"></span>
+        <a href="javascript:void(0)" id="logout-link">注销</a>
+      </div>
+      <a class="login-link" href="/login.html">登录</a>
+    </div>
+  </div>
   <div class="wrapper">
     <div id="user" class="box">
       <h2>个人信息</h2>
@@ -46,15 +66,15 @@
     </div>
   </div>
   <script src="/js/common.js"></script>
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="/js/jquery.js"></script>
   <script>
     $(function () {
-      $.ajax({    
-        type:'get',        
-        url:'/api/get_user_commentList', 
+      $.ajax({
+        type:'get',
+        url:'/api/get_user_commentList',
         data: {
           username: COMMON.getUrlParam('username')
-        },   
+        },
         success:function(data){
           // 拿到数据，则渲染数据
           if (data.success) {
@@ -63,17 +83,47 @@
             // 遍历插入
             var html = '';
             data.list.forEach(function(item, index) {
-              var dateString = COMMON.formatDate("YYYY/MM/DD hh:mm", (new Date(item.date)));
+              var dateString = COMMON.formatDate("YYYY/MM/DD hh:mm", (new Date(+item.date)));
               html += `<li class="comment-item">
-                <p>评论：${item.text}</p> 
-                <p>时间：${dateString}</p> 
+                <p>评论：${item.text}</p>
+                <p>时间：${dateString}</p>
               </li>`;
             });
             $('.comment-list').html(html)
           } else if (data.retcode === -1){
             $('.wrapper').html('无该用户')
           }
-        }    
+        }
+      });
+
+      // 右上角显示用户名
+      $.ajax({
+        type:'get',
+        url:'/api/get_userinfo',
+        success: function (data) {
+          if (data.is_login) {
+            var username = data.username;
+            if (username) {
+              $('.current-user').show();
+              $('.current-user-name').text(username);
+              $('.login-link').hide();
+            }
+          }
+        }
+      })
+
+      $('#logout-link').on('click', function() {
+        $.ajax({
+          type:'post',
+          url:'/api/logout',
+          success: function (data) {
+            if (data.success) {
+              location.reload();
+            } else {
+              alert(data.message);
+            }
+          }
+        })
       });
     });
   </script>

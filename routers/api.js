@@ -17,10 +17,31 @@ router.post('/login', async ( ctx )=>{
       retcode: 0
     };
   } else {
-    // 登陆成功
+    // 登陆失败
     ctx.body = {
       success: false,
       message: '没有该用户'
+    };
+  }
+});
+
+/**
+ * 登陆
+ */
+router.post('/logout', async ( ctx )=>{
+  const postData = ctx.request.body;
+  const user = userModel.checkUserByCookie(ctx);
+  if (user) {
+    userModel.clearUserCookie(ctx);
+    ctx.body = {
+      success: true,
+      retcode: 0
+    };
+  } else {
+    // 登陆失败
+    ctx.body = {
+      success: false,
+      message: '没有登录'
     };
   }
 });
@@ -92,6 +113,23 @@ router.post('/add_comment2', async ( ctx )=>{
 });
 
 /**
+ * 获取用户信息
+ */
+router.get('/get_userinfo', async ( ctx )=> {
+  const user = userModel.checkUserByCookie(ctx);
+  if (user) {
+    ctx.body = {
+      is_login: true,
+      username: user.username
+    }
+  } else {
+    ctx.body = {
+      is_login: false
+    }
+  }
+})
+
+/**
  * 获取用户的评论信息
  */
 router.get('/get_user_commentList', async ( ctx )=>{
@@ -146,12 +184,11 @@ router.get('/get_user_money', async ( ctx )=>{
 });
 
 /**
- * 获取评论列表
+ * 转账请求
  */
 router.post('/transfer_money', async ( ctx )=>{
   const user = userModel.checkUserByCookie(ctx);
   const postData = ctx.request.body;
-  // console.log(postData);
   // 转账操作
   const result = bankModel.transferMoney({
     from: user.username,
@@ -163,16 +200,15 @@ router.post('/transfer_money', async ( ctx )=>{
 });
 
 
-
-
 // /**
-//  * 获取评论列表1.1
+//  * csrf 防御代码
 //  * 增加 referer
+//  * 目前注释掉，演示 referer 防御的时候去掉注释
 //  */
 // router.post('/transfer_money', async ( ctx )=>{
 //   const user = userModel.checkUserByCookie(ctx);
 //   const postData = ctx.request.body;
-  
+
 //   // 获取 referer 判断
 //   const referer = ctx.request.header.referer;
 //   // 符合的才执行
@@ -195,15 +231,18 @@ router.post('/transfer_money', async ( ctx )=>{
 
 
 /**
- * 获取评论列表1.2
+ * csrf 防御代码
  * 增加 token 检验
+ * 目前注释掉，演示 token 防御的时候去掉注释
  */
 // router.post('/transfer_money', async ( ctx )=>{
 //   const user = userModel.checkUserByCookie(ctx);
 //   const postData = ctx.request.body;
 
 //   // 检验token
-//   const isTrueToken = postData.token === userModel.getUserToken(user.username, ctx);
+//   const postToken = postData.token;  // 用户提交的 token
+//   const serverToken = userModel.getUserToken(user.username, ctx); // 服务器算的token
+//   const isTrueToken = postToken === serverToken;
 //   if (isTrueToken) {
 //      // 转账操作
 //      const result = bankModel.transferMoney({
@@ -218,7 +257,7 @@ router.post('/transfer_money', async ( ctx )=>{
 //       success: false,
 //       mesage: 'token 不正确'
 //     };
-//   } 
+//   }
 // });
 
 

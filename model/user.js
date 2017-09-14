@@ -39,7 +39,8 @@ const UserModel = {
   // 根据 cookie 验证用户
   checkUserByCookie: (ctx) => {
     const userkey = ctx.cookies.get('userkey');
-    
+    // const username = ctx.cookies.get('userkey');
+
     let username = null;
     for (let key in userSession) {
       if (userSession[key] === userkey) {
@@ -49,7 +50,14 @@ const UserModel = {
       }
     }
     // 找不到则返回 null
-    return username;
+    return null;
+  },
+  // 清空 cookie
+  clearUserCookie: (ctx) => {
+    const username = ctx.cookies.get('username');
+    userSession[username] = null;
+    ctx.cookies.set('userkey', '', { expires: new Date(0) });
+    ctx.cookies.set('username', '', { expires: new Date(0) });
   },
   /**
    * 获取用户详情
@@ -75,8 +83,8 @@ const UserModel = {
    * 每次使用一次，则重新更新 userkey
    */
   getUserToken: (username, ctx) => {
-
-    const token = userSession[username] + 'secret';
+    const userkey = userSession[username];
+    const token = userkey + '_token';
     // 更新 cookie
     UserModel.setUserCookie(username, ctx);
     console.log(token);

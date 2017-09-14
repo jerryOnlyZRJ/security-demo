@@ -23,18 +23,31 @@
     <p>password: <input type="password" class="password" /></p>
     <button id="js-login" class="btn" type="submit"/>登陆</button>
   </div>
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="/js/jquery.js"></script>
   <script>
+    // 右上角显示用户名
+    $.ajax({
+      type:'get',
+      url:'/api/get_userinfo',
+      success: function (data) {
+        if (data.is_login) {
+          var username = data.username;
+          alert('已经登录');
+          location.href = `/user.html?username=${username}`;
+        }
+      }
+    })
+
     $('#js-login').on('click', function() {
       var username = $('.username').val();
       var password = $('.password').val();
-      $.ajax({    
-        type:'post',        
-        url:'/api/login',    
+      $.ajax({
+        type:'post',
+        url:'/api/login',
         data: {
           username: username,
           password: password,
-        },    
+        },
         success:function(data){
           if (data.success) {
             location.href = `/user.html?username=${username}`;
@@ -44,8 +57,8 @@
           // 清空评论文本框
           $('.username').val('');
           $('.password').val('');
-        }    
-     });    
+        }
+     });
     });
   </script>
 </body>

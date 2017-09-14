@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DOM-based xss</title>
-  
+
 </head>
 <body>
   <h1>输入链接地址，然后点击按钮</h1>
   <div id="content"></div>
   <input type="text" id="text"/>
   <button onclick="addText()">设置链接地址</button>
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="/js/jquery.js"></script>
   <script>
     // 添加文本
     function addText() {
       var htmlText = '<a href="' + $('#text').val() + '">链接</a>';
       $('#content').html(htmlText);
     }
- 
+
     // " onclick=alert(/xss/) //_
   </script>
 </body>

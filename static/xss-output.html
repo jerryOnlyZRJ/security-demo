@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>输出检查</title>
- 
+
 </head>
 <body>
   <h1>输出检查</h1>
@@ -18,13 +18,13 @@
   <p id="content4"></p>
   <h2>在地址栏中输出</h2>
   <p id="content5"></p>
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="/js/jquery.js"></script>
   <script>
     var scriptData = {
       text1: '<script>alert(1);<\/script>',
       text2: '"><script>alert(2);<\/script>',
       text4: '"><script>alert(2);<\/script>',
-      
+
     }
     $('#content1').html(scriptData.text1);
 
@@ -32,7 +32,7 @@
     $('#content2').html(html2);
 
     var test3 = location.hash;
-    // demo.innerHTML = 
+    // demo.innerHTML =
     // `<a href="#" onclick="func('${hash}')">demo4<\/a>`;
     // var html4 = '<a href="' + scriptData.text4 + '">test2</a>';
     $('#content2').html(html4);

@@ -8,14 +8,16 @@ var COMMON = {
   * @example
   * formatDate("YYYY-MM-DD hh:mm:ss", (new Date()));
   */
- formatDate: function(pattern, date) {
+  formatDate: function(pattern, date) {
+    console.log('_date', date);
      if (typeof date == 'number') date = new Date(date);
      function formatNumber(data, format) { //3
          format = format.length;
          data = data || 0;
          return format == 1 ? data : String(Math.pow(10, format) + data).slice(-format);
      }
-     return pattern.replace(/([YMDhsm])\1*/g, function(format) {
+
+     var result = pattern.replace(/([YMDhsm])\1*/g, function(format) {
          switch (format.charAt()) {
              case 'Y':
                  return formatNumber(date.getFullYear(), format);
@@ -33,6 +35,8 @@ var COMMON = {
                  return formatNumber(date.getSeconds(), format);
          }
      });
+     console.log('ersult', result, date);
+     return result;
   },
   //获取url中的参数
   getUrlParam: function (name) {

