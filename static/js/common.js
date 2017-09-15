@@ -9,7 +9,6 @@ var COMMON = {
   * formatDate("YYYY-MM-DD hh:mm:ss", (new Date()));
   */
   formatDate: function(pattern, date) {
-    console.log('_date', date);
      if (typeof date == 'number') date = new Date(date);
      function formatNumber(data, format) { //3
          format = format.length;
