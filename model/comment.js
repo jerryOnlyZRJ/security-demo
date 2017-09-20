@@ -1,5 +1,10 @@
+/**
+* 评论模块
+*/
+
 const router = require('koa-router')();
-// 用户列表
+
+// 评论列表
 let Comments = [{
   username: 'cover',
   text: '文章不错，很有深度！',

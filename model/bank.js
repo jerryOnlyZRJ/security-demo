@@ -1,7 +1,10 @@
+/**
+* 银行数据模块
+*/
+
 const router = require('koa-router')();
 
-
-// 用户列表
+// 用户对应的账户的金额
 let banks = {
   'cover': 10000,
   'badboy': 100,

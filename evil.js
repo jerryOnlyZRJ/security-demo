@@ -18,6 +18,7 @@ app.use(static(
 
 app.use(router.routes()).use(router.allowedMethods());
 
+// 攻击者服务器，端口为 3001
 app.listen(3001, () => {
     console.log('demo is starting at port 3001');
 });
