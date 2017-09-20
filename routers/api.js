@@ -4,7 +4,7 @@ const commentModel = require('../model/comment');
 const bankModel = require('../model/bank');
 
 /**
- * 登陆
+ * 登录
  */
 router.post('/login', async ( ctx )=>{
   const postData = ctx.request.body;
@@ -26,7 +26,7 @@ router.post('/login', async ( ctx )=>{
 });
 
 /**
- * 登陆
+ * 登出
  */
 router.post('/logout', async ( ctx )=>{
   const postData = ctx.request.body;

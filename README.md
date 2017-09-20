@@ -28,7 +28,7 @@ node index.js
 ## CSRF 钓鱼服务器启动
 在项目目录直接命令行启动,默认监听的端口是 3001端口
 ```shell
-node eval.js
+node evil.js
 ```
 
 ## 默认用户账号密码

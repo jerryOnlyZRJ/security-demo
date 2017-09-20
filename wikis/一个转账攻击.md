@@ -8,7 +8,7 @@
 4. 用 kevin 账号转账 1000 给 cover 账号，看下转账后金额
 
 ### 演示攻击方式
-1. 命令行运行 `node eval` 开启一个攻击服务器
+1. 命令行运行 `node evil` 开启一个攻击服务器
 2. 用打开 kevin 的账号浏览器打开有问题的链接，http://localhost:3001/bank-fish.html, 可以看到 3s 后有一个转账请求，切到 kevin 的银行账号发现已经少了 2000 了
 3. 这里 `localhost:3000` 可以理解为我们的因为网站，http://localhost:3001/bank-fish.html 是有问题的钓鱼网站。
 
