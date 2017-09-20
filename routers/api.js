@@ -204,11 +204,11 @@ router.post('/transfer_money', async ( ctx )=>{
 });
 
 
-// /**
-//  * csrf 防御代码
-//  * 增加 referer
-//  * 目前注释掉，演示 referer 防御的时候去掉注释
-//  */
+/**
+ * csrf 防御代码
+ * 增加 referer
+ * 目前注释掉，演示 referer 防御的时候去掉注释
+ */
 // router.post('/transfer_money', async ( ctx )=>{
 //   const user = userModel.checkUserByCookie(ctx);
 //   const postData = ctx.request.body;
@@ -216,7 +216,7 @@ router.post('/transfer_money', async ( ctx )=>{
 //   // 获取 referer 判断
 //   const referer = ctx.request.header.referer;
 //   // 符合的才执行
-//   if (/https?:\/\/localhost:3031/.test(referer)) {
+//   if (/https?:\/\/localhost:3000/.test(referer)) {
 //     // 转账操作
 //     const result = bankModel.transferMoney({
 //       from: user.username,
