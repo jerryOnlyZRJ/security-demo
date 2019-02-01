@@ -1,5 +1,5 @@
 {
-  "name": "p9-demo",
+  "name": "security-demo",
   "version": "1.0.0",
   "description": "安全演示代码",
   "main": "index.js",
@@ -11,7 +11,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start:evil": "node evil.ks"
   },
   "author": "cover",
   "license": "ISC"
